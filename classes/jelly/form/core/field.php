@@ -24,6 +24,12 @@ abstract class Jelly_Form_Core_Field
     protected $_smarty;
 
     /**
+     * Field value
+     * @var mixed
+     */
+    protected $_value;
+
+    /**
      * Factory for instantiating form fields
      * 
      * @param Jelly_Field $field
@@ -71,7 +77,7 @@ abstract class Jelly_Form_Core_Field
             if (array_key_exists($this->_field->name, $errors))
             {
                 return $errors[$this->_field->name];
-                //extra validation
+                //extra validation from controller
             } elseif (isset($errors['_external']))
             {
                 if (array_key_exists($this->_field->name, $errors['_external']))
@@ -80,6 +86,11 @@ abstract class Jelly_Form_Core_Field
                 }
             }
         }
+    }
+
+    public function set_value($value)
+    {
+        $this->_value = $value;
     }
 
     /**
@@ -94,7 +105,29 @@ abstract class Jelly_Form_Core_Field
      */
     protected function _get_value()
     {
-        return null;
+        $item_value = $this->_get_view_var('item');
+
+        //value from post
+        if (isset($_POST[$this->_field->name]))
+        {
+            return $_POST[$this->_field->name];
+            //value from get
+        } elseif (isset($_GET[$this->_field->name]))
+        {
+            return $_GET[$this->_field->name];
+
+            //value set manualy   
+        } elseif ((bool) $this->_value)
+        {
+            return $this->_value;
+            //value item var
+        } elseif ($item_value)
+        {
+            if ($item_value instanceof Jelly_Model)
+            {
+                return $item_value->{$this->_field->name};
+            }
+        }
     }
 
     /**
