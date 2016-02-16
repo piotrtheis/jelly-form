@@ -2,8 +2,8 @@
 
 defined('SYSPATH') or die('No direct access allowed.');
 
-abstract class Jelly_Form_Core_Decorator_Bootstrap
+abstract class Jelly_Form_Core_Decorator_Bootstrap extends Jelly_Form_Decorator
 {
 
-   
+
 }
