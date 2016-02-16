@@ -58,9 +58,14 @@ abstract class Jelly_Form_Core_Field
      * Get field label
      * @return string
      */
-    public function get_label()
+    public function get_label($attr)
     {
-        return Form::label($this->_field->name, $this->_field->label);
+        return Form::label($this->_field->name, $this->_field->label, $attr);
+    }
+
+    public function has_error()
+    {
+        return (bool) $this->get_error();
     }
 
     /**
@@ -71,6 +76,7 @@ abstract class Jelly_Form_Core_Field
     public function get_error()
     {
         $errors = $this->_get_view_var('errors');
+
 
         if ($errors)
         {
@@ -96,7 +102,7 @@ abstract class Jelly_Form_Core_Field
     /**
      * Render form element
      */
-    abstract function get_field($value = null);
+    abstract function get_field($value = null, $attr = null);
 
     /**
      * Get field value

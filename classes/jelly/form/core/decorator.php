@@ -13,7 +13,10 @@ abstract class Jelly_Form_Core_Decorator
 
     public function __construct(Jelly_Form $form)
     {
-        
+        $this->_form = $form;
     }
 
+    public function fields(array $fields = null);
+
+    abstract public function render();
 }
