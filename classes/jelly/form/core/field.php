@@ -96,7 +96,7 @@ abstract class Jelly_Form_Core_Field
     /**
      * Render form element
      */
-    abstract function get_field();
+    abstract function get_field($value = null);
 
     /**
      * Get field value
