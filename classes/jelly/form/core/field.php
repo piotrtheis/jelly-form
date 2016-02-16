@@ -94,6 +94,11 @@ abstract class Jelly_Form_Core_Field
         }
     }
 
+    public function is_required()
+    {
+        
+    }
+
     public function set_value($value)
     {
         $this->_value = $value;
