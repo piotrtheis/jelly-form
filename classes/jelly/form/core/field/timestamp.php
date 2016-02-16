@@ -2,7 +2,7 @@
 
 defined('SYSPATH') or die('No direct access allowed.');
 
-abstract class Jelly_Form_Core_Field_Datetime extends Jelly_Form_Core_Field
+abstract class Jelly_Form_Core_Field_Timestamp extends Jelly_Form_Core_Field
 {
 
     public function get_field($value = null, $attr = null)
