@@ -24,6 +24,12 @@ abstract class Jelly_Form_Core
     protected $_fields;
 
     /**
+     * Form view template
+     * @var \Smarty_View
+     */
+    protected $_view;
+
+    /**
      * Constructor
      * 
      * @param Jelly_Meta $meta
@@ -42,7 +48,16 @@ abstract class Jelly_Form_Core
     public function fields(array $fields = null)
     {
         if (!(bool) $fields)
+        {
+            //convert model fields to form fields
+            foreach ($this->_fields as $key => $field)
+            {
+                $this->_fields[$key] = Jelly_Form_Field::factory($field, $this->_view->smarty());
+            }
+            
             return $this->_fields;
+        }
+
 
         $meta_fields = array_keys($this->_fields);
 
@@ -52,12 +67,20 @@ abstract class Jelly_Form_Core
             unset($this->_fields[$field]);
         }
 
-        //convert model fields to form fields
-        foreach ($this->_fields as $key => $field)
-        {
-            $this->_fields[$key] = Jelly_Form_Field::factory($field);
-        }
 
+
+        return $this;
+    }
+
+    /**
+     * Set form view template
+     * 
+     * @param Smarty_View $view
+     * @return \Jelly_Form_Core
+     */
+    public function set_view(Smarty_View $view)
+    {
+        $this->_view = $view;
         return $this;
     }
 
