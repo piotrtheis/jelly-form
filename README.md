@@ -17,18 +17,19 @@ USAGE
 * In initialize method
 
 
-```$meta->form = (new Jelly_Form($meta))->fields(array('name', 'time', 'date', 'file', 'icon', 'text', 'enum', 'country'));```
+```php
+$meta->form = (new Jelly_Form($meta))->fields(array('name', 'time', 'date', 'file', 'icon', 'text', 'enum', 'country'));
+```
 
 
 **Controller**:
 
-```$this->template->content = View::factory('core/backend/empty/add.tpl')
+```php
+$this->template->content = View::factory('core/backend/empty/add.tpl')
                 ->bind('errors', $errors)
                 ->bind('form', $form);
-
-
-
-        $form = $this->_mod_model->meta()->form->set_view($this->template->content);```
+        $form = $this->_mod_model->meta()->form->set_view($this->template->content);
+```
 
 
 
@@ -36,17 +37,21 @@ USAGE
 
 * Base usege
 
-```{foreach $form->fields() as $key => $field}
-        {$field->get_label()}
-        {$field->get_field()}
-        {$field->get_error()}
-    {/foreach}
+
+```php
+{foreach $form->fields() as $key => $field}
+    {$field->get_label()}
+    {$field->get_field()}
+    {$field->get_error()}
+{/foreach}
 ```
 
 
 * Bootstrap decorator
 
-```{foreach $form->fields() as $key => $field}
-        {$field->bootstrap_form_group()}
-    {/foreach}```
+```php
+{foreach $form->fields() as $key => $field}
+    {$field->bootstrap_form_group()}
+{/foreach}
+```
 
