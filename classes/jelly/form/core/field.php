@@ -136,6 +136,12 @@ abstract class Jelly_Form_Core_Field
         {
             if ($item_value instanceof Jelly_Model)
             {
+                //value for belongsto and hasone
+                if($this->_field instanceof Jelly_Field_Supports_With)
+                {
+                    return $item_value->{$this->_field->name}->{$this->_field->foreign['field']};
+                }
+
                 return $item_value->{$this->_field->name};
             }
         }
