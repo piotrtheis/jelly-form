@@ -69,17 +69,17 @@ $this->template->content = View::factory('core/backend/empty/add.tpl')
 
 ```php
 {foreach $form->group('base')->fields() as $key => $field}
-        {$field->bootstrap_form_group()}
-        <br/>
-    {/foreach}
+    {$field->bootstrap_form_group()}
+    <br/>
+{/foreach}
 
-    {foreach $form->group('address')->fields() as $key => $field}
-        {$field->bootstrap_form_group()}
-        <br/>
-    {/foreach}
+{foreach $form->group('address')->fields() as $key => $field}
+    {$field->bootstrap_form_group()}
+    <br/>
+{/foreach}
 
-    {foreach $form->fields() as $key => $field}
-        {$field->bootstrap_form_group()}
-        <br/>
-    {/foreach}
+{foreach $form->fields() as $key => $field}
+    {$field->bootstrap_form_group()}
+    <br/>
+{/foreach}
 ```
