@@ -130,6 +130,9 @@ abstract class Jelly_Form_Core
 
             return $this->_fields[$key];
         }
+        
+        if(!isset($this->_fields['jelly_form_fields']))
+            return;
 
         //convert model fields to form fields
         foreach ($this->_fields['jelly_form_fields'] as $key => $field)

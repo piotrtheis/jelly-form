@@ -21,6 +21,16 @@ USAGE
 $meta->form = (new Jelly_Form($meta))->fields(array('name', 'time', 'date', 'file', 'icon', 'text', 'enum', 'country'));
 ```
 
+or bint groups
+
+```php
+$meta->form = (new Jelly_Form($meta))
+                ->group('base')
+                ->fields(array('username'))
+                ->group('address')
+                ->fields(array('flat'));
+```
+
 
 **Controller**:
 
@@ -55,3 +65,21 @@ $this->template->content = View::factory('core/backend/empty/add.tpl')
 {/foreach}
 ```
 
+* Bootstrap decorator with groups
+
+```php
+{foreach $form->group('base')->fields() as $key => $field}
+        {$field->bootstrap_form_group()}
+        <br/>
+    {/foreach}
+
+    {foreach $form->group('address')->fields() as $key => $field}
+        {$field->bootstrap_form_group()}
+        <br/>
+    {/foreach}
+
+    {foreach $form->fields() as $key => $field}
+        {$field->bootstrap_form_group()}
+        <br/>
+    {/foreach}
+```
