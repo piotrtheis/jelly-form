@@ -18,6 +18,12 @@ abstract class Jelly_Form_Core
 {
 
     /**
+     * Model meat object
+     * @var \Jelly_Meta
+     */
+    protected $_meta;
+
+    /**
      * Form fields list
      * @var array
      */
@@ -30,13 +36,25 @@ abstract class Jelly_Form_Core
     protected $_view;
 
     /**
+     * Current group key
+     * @var string
+     */
+    protected $_group;
+
+    /**
      * Constructor
      * 
      * @param Jelly_Meta $meta
      */
     public function __construct(Jelly_Meta $meta)
     {
-        $this->_fields = $meta->fields();
+        $this->_meta = clone $meta;
+    }
+
+    public function group($name)
+    {
+        $this->_group = $name;
+        return $this;
     }
 
     /**
@@ -49,25 +67,10 @@ abstract class Jelly_Form_Core
     {
         if (!(bool) $fields)
         {
-            //convert model fields to form fields
-            foreach ($this->_fields as $key => $field)
-            {
-                $this->_fields[$key] = Jelly_Form_Field::factory($field, $this->_view->smarty());
-            }
-            
-            return $this->_fields;
+            return $this->_get_fields();
         }
 
-
-        $meta_fields = array_keys($this->_fields);
-
-        //unnecessary fields
-        foreach (array_diff($meta_fields, $fields) as $field)
-        {
-            unset($this->_fields[$field]);
-        }
-
-
+        $this->_set_fields($fields);
 
         return $this;
     }
@@ -82,6 +85,59 @@ abstract class Jelly_Form_Core
     {
         $this->_view = $view;
         return $this;
+    }
+
+    /**
+     * 
+     * @param array $fields
+     */
+    protected function _set_fields(array $fields)
+    {
+        if ((bool) $this->_group)
+        {
+            foreach ($fields as $field)
+            {
+                $this->_fields[$this->_group][$field] = $this->_meta->field($field);
+            }
+
+            //clear current group
+            $this->_group = null;
+
+            return;
+        }
+
+
+        foreach ($fields as $field)
+        {
+            $this->_fields['jelly_form_fields'][$field] = $this->_meta->field($field);
+        }
+    }
+
+    protected function _get_fields()
+    {
+        if ((bool) $this->_group)
+        {
+            //convert model fields to form fields
+            foreach ($this->_fields[$this->_group] as $key => $field)
+            {
+                $this->_fields[$this->_group][$key] = Jelly_Form_Field::factory($field, $this->_view->smarty());
+            }
+            
+            $key = $this->_group;
+            
+            //clear current group
+            $this->_group = null;
+
+            return $this->_fields[$key];
+        }
+
+        //convert model fields to form fields
+        foreach ($this->_fields['jelly_form_fields'] as $key => $field)
+        {
+            $this->_fields['jelly_form_fields'][$key] = Jelly_Form_Field::factory($field, $this->_view->smarty());
+        }
+
+        return $this->_fields['jelly_form_fields'];
     }
 
 }
