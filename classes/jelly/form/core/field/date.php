@@ -12,7 +12,7 @@ abstract class Jelly_Form_Core_Field_Date extends Jelly_Form_Core_Field
         return Form::input($this->_field->name, $value, $attr);
     }
 
-    public function bootstrap_form_group($value = null)
+    public function bootstrap_form_group($value = null, array $attr = null)
     {
         $group_wrapper = '<div class="form-group %s">%s%s%s</div>';
         $error_helper = ' <span class="help-block">%s</span>';
@@ -20,10 +20,11 @@ abstract class Jelly_Form_Core_Field_Date extends Jelly_Form_Core_Field
         $input_group = '<div class="input-group date datepicker">%s%s</div>';
         $field_addon = '<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>';
         
-        
+        $classes = isset($attr['class']) ? $attr['class'] . ' form-control' : 'form-control';
+        $attr['class'] = $classes;
 
         $group_label = $this->get_label(array('class' => 'control-label'));
-        $group_body  = $this->get_field($value, array('class' => 'form-control'));
+        $group_body  = $this->get_field($value, $attr);
         $group_error = sprintf($error_helper, $this->get_error());
 
         

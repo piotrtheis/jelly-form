@@ -28,13 +28,16 @@ abstract class Jelly_Form_Core_Field_Enum extends Jelly_Form_Core_Field
         return Form::select($this->_field->name, $this->_options, $value, $attr);
     }
 
-    public function bootstrap_form_group($value = null)
+    public function bootstrap_form_group($value = null, array $attr = null)
     {
         $group_wrapper = '<div class="form-group %s">%s</div>';
         $error_helper = ' <span class="help-block">%s</span>';
+        
+        $classes = isset($attr['class']) ? $attr['class'] . ' form-control' : 'form-control';
+        $attr['class'] = $classes;
 
         $group_body = $this->get_label(array('class' => 'control-label'));
-        $group_body .= $this->get_field($value, array('class' => 'form-control'));
+        $group_body .= $this->get_field($value, $attr);
         $group_body .= sprintf($error_helper, $this->get_error());
 
         if ($this->has_error())
