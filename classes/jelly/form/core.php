@@ -5,11 +5,11 @@ defined('SYSPATH') or die('No direct access allowed.');
 /**
  * Jelly Form Core
  *
- * This core class is the main interface to all
- * models, builders, and meta data.
+ * Form class, binding form in model,
+ * setup form in controller
  *
  * @package    Jelly/Form
- * @category   Base
+ * @category   Core
  * @author     Piotr Theis <piotr_theis@o2.pl>
  * @copyright  (c) 2016-2017 Piotr Theis
  * @license    http://www.opensource.org/licenses/isc-license.txt

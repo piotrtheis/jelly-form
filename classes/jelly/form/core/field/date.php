@@ -2,6 +2,17 @@
 
 defined('SYSPATH') or die('No direct access allowed.');
 
+/**
+ * Jelly Form Core Field Date
+ *
+ * Date form field as datepicker
+ *
+ * @package    Jelly/Form
+ * @category   Field
+ * @author     Piotr Theis <piotr_theis@o2.pl>
+ * @copyright  (c) 2016-2017 Piotr Theis
+ * @license    http://www.opensource.org/licenses/isc-license.txt
+ */
 abstract class Jelly_Form_Core_Field_Date extends Jelly_Form_Core_Field
 {
 
