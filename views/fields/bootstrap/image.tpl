@@ -1,4 +1,4 @@
-<div class="control-group {if $form->has_error()}has-error{/if}">
+<div class="control-group nopadding {if $form->has_error()}has-error{/if}">
     <label class="control-label" for="{$field->name}">{lang}{$field->label}{/lang}</label>
     <div class="clearfix"></div>
     <div>
