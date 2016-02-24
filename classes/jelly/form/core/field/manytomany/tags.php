@@ -14,15 +14,18 @@ defined('SYSPATH') or die('No direct access allowed.');
  * @copyright  (c) 2016-2017 Piotr Theis
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-abstract class Jelly_Form_Core_Field_Manytomany_Tags extends Jelly_Form_Field_Manytomany
+abstract class Jelly_Form_Core_Field_Manytomany_Tags extends Jelly_Form_Field
 {
 
-    protected $_options;
+    protected $_tags = array();
 
     public function __construct($field, $smarty)
     {
-//        parent::__construct($field, $smarty);
-        return 123;
+        parent::__construct($field, $smarty);
+
+        $tags = Jelly::query($this->_field->model)
+                ->select();
+
     }
 
     public function get_field($value = null, $attr = null)
@@ -30,9 +33,25 @@ abstract class Jelly_Form_Core_Field_Manytomany_Tags extends Jelly_Form_Field_Ma
         
     }
 
-    public function bootstrap_form_group()
+    public function bootstrap_form_group($value = null, array $attr = null)
     {
-        echo 123;
+        $view = View::factory('fields/bootstrap/presentation/manytomany/tags.tpl')
+                ->set('form', $this)
+                ->set('field', $this->_field)
+                ->bind('value', $value);
+
+
+        if (!(bool) $value)
+        {
+            $value = $this->_get_value();
+
+            if ($value instanceof Jelly_Collection)
+            {
+                $value = implode(',', $value->as_array(null, 'tag'));
+            }
+        }
+
+        return $view->render();
     }
 
 }

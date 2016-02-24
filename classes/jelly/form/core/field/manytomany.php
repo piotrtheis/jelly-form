@@ -46,11 +46,11 @@ abstract class Jelly_Form_Core_Field_Manytomany extends Jelly_Form_Core_Field
     
     public function get_field($value = null, $attr = null)
     {
-        
+        return call_user_method_array('get_field', $this->_presentation_field, array($value, $attr));
     }
     
     public function __call($name, $arguments)
     {   
-        call_user_method_array($name, $this->_presentation_field, $arguments);
+        return call_user_method_array($name, $this->_presentation_field, $arguments);
     }
 }
