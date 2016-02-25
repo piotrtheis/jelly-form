@@ -90,17 +90,35 @@ abstract class Jelly_Form_Core_Field
         $errors = $this->_get_view_var('errors');
 
 
+
         if ($errors)
         {
-            if (array_key_exists($this->_field->name, $errors))
+            if ($this->_field instanceof Jelly_Field_ManyToMany)
             {
-                return $errors[$this->_field->name];
-                //extra validation from controller
-            } elseif (isset($errors['_external']))
-            {
-                if (array_key_exists($this->_field->name, $errors['_external']))
+
+                if (array_key_exists(Inflector::singular($this->_field->name), $errors))
                 {
-                    return $errors['_external'][$this->_field->name];
+                    return $errors[Inflector::singular($this->_field->name)];
+                    //extra validation from controller
+                } elseif (isset($errors['_external']))
+                {
+                    if (array_key_exists(Inflector::singular($this->_field->name), $errors['_external']))
+                    {
+                        return $errors['_external'][Inflector::singular($this->_field->name)];
+                    }
+                }
+            } else
+            {
+                if (array_key_exists($this->_field->name, $errors))
+                {
+                    return $errors[$this->_field->name];
+                    //extra validation from controller
+                } elseif (isset($errors['_external']))
+                {
+                    if (array_key_exists($this->_field->name, $errors['_external']))
+                    {
+                        return $errors['_external'][$this->_field->name];
+                    }
                 }
             }
         }
@@ -149,7 +167,7 @@ abstract class Jelly_Form_Core_Field
             if ($item_value instanceof Jelly_Model)
             {
                 //value for belongsto and hasone
-                if($this->_field instanceof Jelly_Field_Supports_With)
+                if ($this->_field instanceof Jelly_Field_Supports_With)
                 {
                     return $item_value->{$this->_field->name}->{$this->_field->foreign['field']};
                 }
