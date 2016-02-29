@@ -1,4 +1,4 @@
-<div class="control-group {if $form->has_error()}has-error{/if}">
+<div class="control-group {if $form->has_error()}has-error{/if}" style="padding: 0px; border: none">
     <label class="control-label" for="{$field->name}">{lang}{$field->label}{/lang}</label>
     <div class="clearfix"></div>
     <div>
@@ -11,14 +11,14 @@
             <span class="fileinput-filename"></span>
             <a href="#" class="close fileinput-{if $smarty.post[$post_helper]|default:""}exists{else}new{/if}" data-dismiss="fileinput" style="float: none">&times;</a>*}
 
-            <div class="form-control" data-trigger="fileinput">
+            <div class="form-control" data-trigger="fileinput" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px; border: 1px solid #dce4ec">
                 <i class="glyphicon glyphicon-file fileinput-exists"></i> 
                 <span class="fileinput-filename">
                     {*TODO replace field path*}
                     {$smarty.post[$post_helper]|replace:$path:''|default:""}
                 </span>
             </div>
-            <span class="input-group-addon btn btn-default btn-file">
+            <span class="input-group-addon btn btn-default btn-file" style="padding: 10px 15px; border-color: #dce4ec;">
                 <span class="fileinput-new">{lang}Select file{/lang}</span>
                 <span class="fileinput-exists">{lang}Change{/lang}</span>
                 <input type="file" name="{$field->name}" accept="{$accept}">

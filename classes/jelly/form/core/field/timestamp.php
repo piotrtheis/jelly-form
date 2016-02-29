@@ -19,6 +19,8 @@ abstract class Jelly_Form_Core_Field_Timestamp extends Jelly_Form_Core_Field
     public function get_field($value = null, $attr = null)
     {
         $value = ($value) ? $value : $this->_get_value();
+        
+        echo Debug::vars($value);
 
         return Form::input($this->_field->name, $value, $attr);
     }
@@ -28,7 +30,7 @@ abstract class Jelly_Form_Core_Field_Timestamp extends Jelly_Form_Core_Field
         $group_wrapper = '<div class="form-group %s">%s%s%s</div>';
         $error_helper = ' <span class="help-block">%s</span>';
         
-        $input_group = '<div class="input-group date datetimepicker">%s%s</div>';
+        $input_group = '<div class="input-group">%s%s</div>';
         $field_addon = '<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>';
         
         $classes = isset($attr['class']) ? $attr['class'] . ' form-control' : 'form-control';

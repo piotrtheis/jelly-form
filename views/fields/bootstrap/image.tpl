@@ -8,7 +8,7 @@
                 <img src="{$smarty.post[$post_helper]|default:"https://upload.wikimedia.org/wikipedia/commons/d/d5/Blank_-_Spacer.png"}">
             </div>
             <div>
-                <span class="btn btn-default btn-file">
+                <span class="btn btn-default btn-file" style="padding: 10px 15px; border-color: #95a5a6;">
                     <span class="fileinput-exists">{lang}Change{/lang}</span>
                     <span class="fileinput-new">{lang}Select file{/lang}</span> 
                     <input type="file" name="{$field->name}" accept="{$accept}">
